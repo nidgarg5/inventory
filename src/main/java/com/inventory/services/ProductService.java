@@ -13,7 +13,6 @@ import org.springframework.validation.annotation.Validated;
 
 import com.inventory.entities.Product;
 import com.inventory.entities.RecalledProduct;
-import com.inventory.exception.BusinessException;
 import com.inventory.helpers.ProductFilter;
 import com.inventory.repositories.InventoryRepository;
 import com.inventory.repositories.RecalledProductRepository;
@@ -29,10 +28,10 @@ public class ProductService {
 
     @Transactional
     public Product save(@Validated Product product) {
-    	List<String> errorList = product.validateProduct(product);
+    	/*List<String> errorList = product.validateProduct(product);
     	if(!errorList.isEmpty()) {
     		throw new BusinessException("601","Product Details are not validated");
-    	}
+    	}*/
         return inventoryRepository.save(product);
     }
     

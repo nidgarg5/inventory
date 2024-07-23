@@ -9,13 +9,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.Hibernate;
-import org.springframework.util.StringUtils;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,8 +35,14 @@ public class Product {
     Integer id;
 
     @Column(unique = true)
+    @NotBlank(message="Name cannot be blank")
     String name;
+    
+    //@NotBlank(message="Price cannot be blank")
     Double price;
+    
+    @Min(value = 1, message = "Quantity must be greater than 0")
+    @NotNull
     Integer quantity;
 
     @Override
@@ -52,7 +59,7 @@ public class Product {
     }
     
     //Validation for name, price and quantity
-    public List<String> validateProduct(Product product){
+    /*public List<String> validateProduct(Product product){
     	List<String> errorList = new ArrayList<String>();
     	if(product.name.equals("")) {
     		errorList.add("Product Name is Empty");
@@ -64,7 +71,7 @@ public class Product {
     		errorList.add("Product Quantity is Zero");
     	}
     	return errorList;
-    }
+    }*/
     
     
 }

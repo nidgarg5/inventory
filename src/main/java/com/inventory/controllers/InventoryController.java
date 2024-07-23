@@ -3,6 +3,9 @@ package com.inventory.controllers;
 import java.util.Collection;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +43,7 @@ public class InventoryController {
      * @return
      */
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+    public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product) {
         return ResponseEntity.ok(productService.save(product));
     }
 
@@ -63,8 +66,14 @@ public class InventoryController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable Integer id) {
-    	 productService.deleteById(id);
-    	 return ResponseEntity.ok("Product deleted");
+    	Product p = productService.findById(id).get();
+    	if(p!=null) {
+    		 productService.deleteById(id);
+        	 return ResponseEntity.status(HttpStatus.ACCEPTED).body("Product Deleted");
+    	}
+    	return ResponseEntity.notFound().build();
+    	
+ 
     }
     
     /**
