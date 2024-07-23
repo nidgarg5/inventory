@@ -73,7 +73,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-        <finalName>spring-boot-aws-exe</finalName>
+        <finalName>inventory-service</finalName>
     </build>
     
   
